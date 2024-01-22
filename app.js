@@ -1,8 +1,13 @@
+let listaDeNumerosSorteados = [];
+let numeroLimite = 100;
+
 exibirTextoInicial();
+
 function textoModelo(tag, texto)
 {
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate: 1.2});
 }
 
 function exibirTextoInicial()
@@ -48,5 +53,19 @@ function reiniciarJogo()
 }
 function geraNumero()
 {
-    return parseInt(Math.random() * 100 + 1);
+    let numeroSecreto = parseInt(Math.random() * numeroLimite + 1);
+    let quantidadeDosElementos = listaDeNumerosSorteados.length;
+    if (quantidadeDosElementos == numeroLimite)
+    {
+        listaDeNumerosSorteados = [];
+    }
+    if (listaDeNumerosSorteados.includes(numeroSecreto))
+    {
+        return geraNumero();
+    }
+    else 
+    {
+        listaDeNumerosSorteados.push(numeroSecreto)
+        return numeroSecreto;
+    }
 }
